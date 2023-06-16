@@ -1,30 +1,38 @@
-package com.example.youtube_6month.ui.adapter
+package com.example.youtube_6month.ui.playlists.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
+import com.example.youtube_6month.data.remote.model.Item
 import com.example.youtube_6month.databinding.ItemPlaylistsBinding
-import com.example.youtube_6month.model.Item
 
 
-class MainAdapter(private val onClick: (item: Item) -> Unit) :
+class MainAdapter(private val onClick: (Item) -> Unit) :
     Adapter<MainAdapter.MainViewHolder>() {
 
-    private var list = arrayListOf<Item>()
+    private var listOfItems = arrayListOf<Item>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<Item>){
+        this.listOfItems = list as ArrayList<Item>
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(ItemPlaylistsBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(listOfItems[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return listOfItems.size
     }
+
 
     inner class MainViewHolder(private var binding: ItemPlaylistsBinding) :
         ViewHolder(binding.root) {

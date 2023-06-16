@@ -1,6 +1,7 @@
-package com.example.youtube_6month.remote
+package com.example.youtube_6month.core.network
 
 import com.example.youtube_6month.BuildConfig
+import com.example.youtube_6month.data.remote.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,8 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
-
-
 
     companion object{
        fun create(): ApiService {

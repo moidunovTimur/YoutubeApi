@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Youtube_6month</string>
+    <string name="back">back</string>
+    <string name="title">Title</string>
+    <string name="desc">Desc</string>
+    <string name="_playlist">Playlist</string>
 </resources>
