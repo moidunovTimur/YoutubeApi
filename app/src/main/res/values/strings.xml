@@ -4,4 +4,11 @@
     <string name="title">Title</string>
     <string name="desc">Desc</string>
     <string name="_playlist">Playlist</string>
+    <string name="select_video_quality" />
+    <string name="_480p" />
+    <string name="_720p" />
+    <string name="_1080p" />
+    <string name="download" />
+    <string name="Playlist" />
+    <string name="Download">Download</string>
 </resources>

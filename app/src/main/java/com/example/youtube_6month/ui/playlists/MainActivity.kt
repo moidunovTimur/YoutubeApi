@@ -1,10 +1,12 @@
 package com.example.youtube_6month.ui.playlists
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtube_6month.core.network.results.Status
 import com.example.youtube_6month.core.ui.BaseActivity
 import com.example.youtube_6month.databinding.ActivityMainBinding
@@ -12,14 +14,15 @@ import com.example.youtube_6month.data.remote.model.Item
 import com.example.youtube_6month.ui.playlists.adapter.MainAdapter
 import com.example.youtube_6month.ui.detail.DetailActivity
 import com.example.youtube_6month.core.utils.ConnectionLiveData
+import com.example.youtube_6month.data.remote.model.Playlists
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
 
-    private val adapter = MainAdapter(this::onClick)
+    private lateinit var adapter:MainAdapter
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    override val viewModel: MainViewModel by viewModel()
+
 
     override fun inflateViewBinding(): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
@@ -38,9 +41,13 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
         }
     }
 
+    override fun setUI() {
+        super.setUI()
+        adapter = MainAdapter (this::onClick)
+    }
+
     override fun setupLiveData() {
         super.setupLiveData()
-
    viewModel.loading.observe(this) {
      binding.progressBar.isVisible = it
 }
@@ -67,12 +74,25 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
 
     private fun onClick(item: Item){
         val intent = Intent(this@MainActivity, DetailActivity::class.java)
-        intent.putExtra("id", item.id)
+        intent.putExtra(KEY_FOR_ID, item.id)
         intent.putExtra("title", item.snippet.title)
         intent.putExtra("desc", item.snippet.description)
         startActivity(intent)
 
-
         }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setupRecycler() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = this@MainActivity.adapter
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+
+    companion object {
+        const val ID = "ID"
+        const val KEY_FOR_ID = "KEY_FOR_ID"
+    }
     }
 

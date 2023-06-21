@@ -8,7 +8,7 @@ import com.example.youtube_6month.core.utils.loadImage
 import com.example.youtube_6month.data.remote.model.PlaylistItem
 import com.example.youtube_6month.databinding.ItemDetailBinding
 
-class DetailAdapter() :
+class DetailAdapter :
     RecyclerView.Adapter<DetailAdapter.PlaylistItemViewHolder>() {
     private var playlistItem = listOf<PlaylistItem.Item>()
 

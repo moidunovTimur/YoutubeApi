@@ -2,15 +2,17 @@ package com.example.youtube_6month.core.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity<VB : ViewBinding,VM:BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding,VM:ViewModel> : AppCompatActivity() {
 
     protected lateinit var binding: VB
 
     protected abstract fun inflateViewBinding(): VB
 
     protected abstract val viewModel: VM
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
