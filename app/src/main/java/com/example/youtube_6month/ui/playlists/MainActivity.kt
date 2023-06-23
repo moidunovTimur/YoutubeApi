@@ -17,9 +17,9 @@ import com.example.youtube_6month.core.utils.ConnectionLiveData
 import com.example.youtube_6month.data.remote.model.Playlists
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-    private lateinit var adapter:MainAdapter
+    private lateinit var adapter: MainAdapter
 
     override val viewModel: MainViewModel by viewModel()
 
@@ -43,17 +43,17 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
 
     override fun setUI() {
         super.setUI()
-        adapter = MainAdapter (this::onClick)
+        adapter = MainAdapter(this::onClick)
     }
 
     override fun setupLiveData() {
         super.setupLiveData()
-   viewModel.loading.observe(this) {
-     binding.progressBar.isVisible = it
-}
+        viewModel.loading.observe(this) {
+            binding.progressBar.isVisible = it
+        }
 
-        viewModel.getPlayList().observe(this){
-            when(it.status){
+        viewModel.getPlayList().observe(this) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     binding.recyclerView.adapter = adapter
                     it.data?.items?.let { it1 -> adapter.setList(it1) }
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
                     viewModel.loading.postValue(false)
                 }
                 Status.ERROR -> {
-                    Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     viewModel.loading.postValue(false)
                 }
                 Status.LOADING -> {
@@ -72,14 +72,16 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
         }
     }
 
-    private fun onClick(item: Item){
+    private fun onClick(item: Item) {
         val intent = Intent(this@MainActivity, DetailActivity::class.java)
-        intent.putExtra(KEY_FOR_ID, item.id)
+        intent.putExtra(ID, item.id)
         intent.putExtra("title", item.snippet.title)
         intent.putExtra("desc", item.snippet.description)
+        intent.putExtra("count", item.contentDetails.itemCount)
         startActivity(intent)
 
-        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun setupRecycler() {
         binding.recyclerView.apply {
@@ -92,7 +94,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
 
     companion object {
         const val ID = "ID"
-        const val KEY_FOR_ID = "KEY_FOR_ID"
+        const val KEY_FOR_COUNT = "ded"
     }
-    }
+}
 

@@ -11,4 +11,9 @@
     <string name="download" />
     <string name="Playlist" />
     <string name="Download">Download</string>
+    <string name="Select_video_quality">Select video quality</string>
+    <string name="_480">480p</string>
+    <string name="_720">720p</string>
+    <string name="_1080">1080p</string>
+    <string name="download_">Download</string>
 </resources>
